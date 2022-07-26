@@ -1,9 +1,11 @@
-# Fabric Example Mod
+# Critical Shears
 
-## Setup
 
-For setup instructions please see the [fabric wiki page](https://fabricmc.net/wiki/tutorial:setup) that relates to the IDE that you are using.
 
-## License
+### About
 
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+I was shearing my sheep one day, and thought it would go much faster if I could critically shear them. So, I made this mod. Whenever you shear a sheep with a critical hit, it is guaranteed to drop three wool instead of 1-3.
+
+The server I was playing on wasn't actually a modded server though, so I don't really get to reap the rewards of this mod. I suppose you could call me a martyr. Thank me later.
+
+Jokes aside, enjoy the mod!
