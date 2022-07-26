@@ -1,14 +1,17 @@
 package com.jackpapel.critical_shears.mixin;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.MinecraftClient;
+import com.jackpapel.critical_shears.CriticalShears;
+import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particle.ParticleTypes;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.PacketByteBuf;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -56,8 +59,12 @@ public class SheepEntityMixin extends MobEntity {
         if (this.criticallySheared) {
             this.criticallySheared = false;
             this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, this.getSoundCategory(), 1.0F, 1.0F);
-            if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
-                MinecraftClient.getInstance().particleManager.addEmitter(this, ParticleTypes.CRIT);
+            if (!this.world.isClient()) {
+                PacketByteBuf packet = PacketByteBufs.create();
+                packet.writeInt(this.getId());
+                for (ServerPlayerEntity player : PlayerLookup.tracking(this)) {
+                    ServerPlayNetworking.send(player, CriticalShears.SHEEP_CRIT_PARTICLE_ID, packet);
+                }
             }
             return 2; // + 1 = 3
         }

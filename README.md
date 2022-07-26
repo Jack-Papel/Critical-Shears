@@ -1,7 +1,5 @@
 # Critical Shears
 
-
-
 ### About
 
 I was shearing my sheep one day, and thought it would go much faster if I could critically shear them. So, I made this mod. Whenever you shear a sheep with a critical hit, it is guaranteed to drop three wool instead of 1-3.

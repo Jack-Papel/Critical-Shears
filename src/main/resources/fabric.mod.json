@@ -18,6 +18,14 @@
   "icon": "assets/critical_shears/icon.png",
 
   "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.jackpapel.critical_shears.CriticalShears"
+    ],
+    "client": [
+      "com.jackpapel.critical_shears.CriticalShears"
+    ]
+  },
   "mixins": [
     "critical_shears.mixins.json"
   ],
