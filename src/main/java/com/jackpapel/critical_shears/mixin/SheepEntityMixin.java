@@ -61,7 +61,7 @@ public class SheepEntityMixin extends MobEntity {
             this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, this.getSoundCategory(), 1.0F, 1.0F);
             if (!this.world.isClient()) {
                 PacketByteBuf packet = PacketByteBufs.create();
-                packet.writeInt(this.getEntityId());
+                packet.writeInt(this.getId());
                 for (ServerPlayerEntity player : PlayerLookup.tracking(this)) {
                     ServerPlayNetworking.send(player, CriticalShears.SHEEP_CRIT_PARTICLE_ID, packet);
                 }
