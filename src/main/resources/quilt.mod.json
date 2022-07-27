@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "quilt_loader": {
+    "group": "com.jackpapel",
+    "id": "critical_shears",
+    "version": "${version}",
+    "metadata": {
+      "name": "Critical Shears",
+      "description": "A mod allowing for critical shearing of sheep.",
+      "contributors": {
+        "Jack Papel": "Author"
+      },
+      "contact": {
+        "homepage": "https://www.jackpapel.com/",
+        "issues": "https://github.com/Jack-Papel/Critical-Shears/issues",
+        "sources": "https://github.com/Jack-Papel/Critical-Shears"
+      },
+      "icon": "assets/critical_shears/icon.png",
+      "license": "MIT"
+    },
+    "intermediate_mappings": "net.fabricmc:intermediary",
+    "entrypoints": {
+      "init": "com.jackpapel.critical_shears.CriticalShears",
+      "client_init": "com.jackpapel.critical_shears.CriticalShears"
+    },
+    "depends": [
+      {
+        "id": "quilt_loader",
+        "versions": ">=0.17.0-"
+      },
+      {
+        "id": "quilted_fabric_api",
+        "versions": ">=2.0.0-"
+      },
+      {
+        "id": "minecraft",
+        "versions": ">=1.19"
+      }
+    ]
+  },
+  "mixin": "critical_shears.mixins.json"
+}
