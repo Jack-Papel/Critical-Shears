@@ -9,13 +9,11 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.random.Random;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -23,6 +21,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Random;
 
 @Mixin(SheepEntity.class)
 public class SheepEntityMixin extends MobEntity {
@@ -52,7 +52,7 @@ public class SheepEntityMixin extends MobEntity {
             method = "sheared(Lnet/minecraft/sound/SoundCategory;)V",
             at = @At(
                     value = "INVOKE",
-                    target = "Lnet/minecraft/util/math/random/Random;nextInt(I)I"
+                    target = "Ljava/util/Random;nextInt(I)I"
             )
     )
     private int criticallyShear(Random instance, int i) {
@@ -61,7 +61,7 @@ public class SheepEntityMixin extends MobEntity {
             this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, this.getSoundCategory(), 1.0F, 1.0F);
             if (!this.world.isClient()) {
                 PacketByteBuf packet = PacketByteBufs.create();
-                packet.writeInt(this.getId());
+                packet.writeInt(this.getEntityId());
                 for (ServerPlayerEntity player : PlayerLookup.tracking(this)) {
                     ServerPlayNetworking.send(player, CriticalShears.SHEEP_CRIT_PARTICLE_ID, packet);
                 }
