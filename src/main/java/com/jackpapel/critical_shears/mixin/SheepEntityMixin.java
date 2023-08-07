@@ -9,7 +9,6 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundEvents;
@@ -58,8 +57,8 @@ public class SheepEntityMixin extends MobEntity {
     private int criticallyShear(Random instance, int i) {
         if (this.criticallySheared) {
             this.criticallySheared = false;
-            this.world.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, this.getSoundCategory(), 1.0F, 1.0F);
-            if (!this.world.isClient()) {
+            this.getWorld().playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.ENTITY_PLAYER_ATTACK_CRIT, this.getSoundCategory(), 1.0F, 1.0F);
+            if (!this.getWorld().isClient()) {
                 PacketByteBuf packet = PacketByteBufs.create();
                 packet.writeInt(this.getId());
                 for (ServerPlayerEntity player : PlayerLookup.tracking(this)) {
